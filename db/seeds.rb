@@ -8,6 +8,7 @@
 require 'net/http'
 
 key = Rails.application.secrets.wine_dot_com_key
+key = "f7a7b6c3b8b64644540a8a27734576aa"
 uri = URI("http://services.wine.com/api/beta2/service.svc/json/catalog?size=100&apikey=#{key}")
 response = Net::HTTP.get_response(uri).body
 result = JSON.parse(response)
