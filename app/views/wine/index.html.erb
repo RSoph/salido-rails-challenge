@@ -1,7 +1,14 @@
-<ol>
+<table>
+	<th>Name</th>
+	<th>Vineyard</th>
+	<th>Highest Rating</th>
+	<th>Description</th>
 	<% @wines.each do |wine| %>
-		<li>
-			<%= wine.name %>
-		</li>
+		<tr>
+			<td><%= wine.name %></td>
+			<td><%= wine.vineyard || "Vineyard info not found." %></td>
+			<td><%= wine.community_rating %></td>
+			<td><%= wine.description || "No description available."%></td>
+		</tr>
 	<%end%>
-</ol>
+</table>
