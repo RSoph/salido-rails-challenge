@@ -1,28 +1,21 @@
-== README
+Inventory-Management for Salido's wine database
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app was created with Rails 4.2.0, I have provided a seed file for adding wine.com's first 100 wines to the database. Your own wine.com API key should be added to your local secrets.yml file as: "wine_dot_com_key: YOUR_KEY". The database should be created, migrated and seeded.
 
-Things you may want to cover:
+Using the browser, users may:
+View a full list of wines in the database
+Update any property of a wine already listed (except for rating)
+Delete a wine from the database
+Add a new wine to the database
 
-* Ruby version
+API queries may be made via:
+GET to "http://localhost:3000/api/wines" which returns a JSON-formatted list of all wines in the database 
+GET to "http://localhost:3000/api/wines/ID", which returns the JSON-formatted entry for the wine matching id = ID
+PATCH to "http://localhost:3000/api/wines/ID?KEY=VALUE", to update any wine's attributes with a new value for the given key. This returns the JSON-formatted entry for the updated wine matching id = ID. Keys which can be used for updating are name, vineyard, and description. Keys and values may be stacked as in: "http://localhost:3000/api/wines/ID?KEY0=VALUE0&KEY1=VALUE1"
 
-* System dependencies
+Users may not use the API to update the community rating of the wine, since there is no practical use-case for this.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+This app assumes:
+- That you have your own wine.com API key, without one the database can still be created, but not seeded - you will have to add all wines manually through the browser.
+- That you have no security concerns; If this app is hosted on the Internet as-is, it will be freely available to the public, and anyone may add, delete, or update the inventory
+- That you have no interest in a beautiful front-end. I have not done any styling at all, and although I believe the visable tables are perfectly readable, they are not designed.
