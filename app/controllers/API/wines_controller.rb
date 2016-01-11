@@ -8,7 +8,7 @@ class API::WinesController < ApplicationController
 	end
 
 	def show
-		@wine = Wine.find(wine_params)
+		@wine = Wine.find(params[:id])
 		respond_to do |format|
 			format.json {render :json => @wine}
 		end
