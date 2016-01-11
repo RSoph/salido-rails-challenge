@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'net/http'
 
 key = Rails.application.secrets.wine_dot_com_key
 uri = URI("http://services.wine.com/api/beta2/service.svc/json/catalog?size=100&apikey=#{key}")
