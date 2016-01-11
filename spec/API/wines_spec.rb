@@ -27,4 +27,16 @@ RSpec.describe API::WinesController, :type => :controller do
       }.to change(@wine, :vineyard).to("Grape Scott!")
     end
   end
+
+    describe "index" do
+    before(:each) do
+      @uri = URI('http://localhost:3000/api/wines')
+      @response = Net::HTTP.get_response(@uri)
+      @wines = JSON.parse(@response.body)
+    end
+
+    it "wine names are displayed" do
+      expect(@wines[0]["name"]).to eq("90+ Point Red Wine Trio")
+    end
+  end
 end
