@@ -8,10 +8,21 @@ class API::WinesController < ApplicationController
 	end
 
 	def show
-		@wine = Wine.find(params[:id])
+		@wine = Wine.find(wine_params)
 		respond_to do |format|
 			format.json {render :json => @wine}
 		end
 	end
 
+	def update
+		@wine = Wine.find(wine_params)
+		@wine.update(wine_params)
+	    render json: @wine
+	end
+
+	private
+
+ 	def wine_params
+ 	  params.require(:wine).permit(:id, :name, :vineyard, :description)
+ 	end
 end
