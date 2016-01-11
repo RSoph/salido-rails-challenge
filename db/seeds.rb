@@ -13,5 +13,12 @@ result = JSON.parse(response)
 data = result['Products']['List']
 
 data.each do |datum|
-  Wine.create(name: datum['Name'], description: datum['Description'], vineyard: datum["Vineyard"], community_rating: datum["Community"]["Reviews"]["HighestScore"])
+  wine = Wine.new(name: datum['Name'], community_rating: datum["Community"]["Reviews"]["HighestScore"])
+  wine.vineyard = datum["Vineyard"]["Name"] if datum["Vineyard"]
+  wine.description = datum['Description'].split("<")[0] unless datum['Description'].split("<")[0] == ""
+  wine.description ||= datum['Description'].split("<")[1][2..-1] if datum['Description'].split("<")[1]
+  if wine.description == "- WINE.COM START -->\r\n"
+  	wine.description = nil
+  end
+  wine.save!
 end
