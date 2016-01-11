@@ -17,4 +17,14 @@ RSpec.describe API::WinesController, :type => :controller do
       expect(@wine["name"]).to eq("Duckhorn Vineyards Wine Trio")
     end
   end
+
+  describe "Update" do
+    it "should update vineyard" do
+      @wine = Wine.create(vineyard: "none")
+      expect {
+        patch :update, id: @wine, vineyard: "Grape Scott!"
+        @wine.reload
+      }.to change(@wine, :vineyard).to("Grape Scott!")
+    end
+  end
 end

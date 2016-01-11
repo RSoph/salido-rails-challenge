@@ -1,4 +1,5 @@
 class API::WinesController < ApplicationController
+	skip_before_action :verify_authenticity_token
 
 	def index
 		@wines = Wine.all
@@ -15,14 +16,17 @@ class API::WinesController < ApplicationController
 	end
 
 	def update
-		@wine = Wine.find(wine_params)
-		@wine.update(wine_params)
+		@wine = Wine.find(params[:id])
+		@wine.name = params[:name] if params[:name]
+		@wine.vineyard = params[:vineyard] if params[:vineyard]
+		@wine.description = params[:description] if params[:description]
+		@wine.save!
 	    render json: @wine
 	end
 
 	private
 
  	def wine_params
- 	  params.require(:wine).permit(:id, :name, :vineyard, :description)
+ 	  params.permit(:id, :name, :vineyard, :description)
  	end
 end
