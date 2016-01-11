@@ -5,10 +5,12 @@
 	<th>Description</th>
 	<% @wines.each do |wine| %>
 		<tr>
-			<td><%= wine.name %></td>
+			<td><%= link_to "#{wine.name}", wine_path(wine) %></td>
 			<td><%= wine.vineyard || "Vineyard info not found." %></td>
 			<td><%= wine.community_rating %></td>
 			<td><%= wine.description || "No description available."%></td>
 		</tr>
 	<%end%>
 </table>
+
+<%= link_to "Add new wine", new_wine_path %>

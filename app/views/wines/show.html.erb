@@ -1,0 +1,15 @@
+<table>
+	<th>Name</th>
+	<th>Vineyard</th>
+	<th>Highest Rating</th>
+	<th>Description</th>
+	<tr>
+		<td><%= @wine.name %></td>
+		<td><%= @wine.vineyard || "Vineyard info not found." %></td>
+		<td><%= @wine.community_rating %></td>
+		<td><%= @wine.description || "No description available."%></td>
+	</tr>
+</table>
+
+<%= link_to "Edit", edit_wine_path(@wine.id) %>
+<%= button_to "Delete", { action: "destroy", id: @wine.id }, method: :delete %>

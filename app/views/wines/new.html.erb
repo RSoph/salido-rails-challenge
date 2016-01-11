@@ -1,0 +1,15 @@
+<%= form_for @wine do |f| %>
+  <%= f.label :name %>:
+  <%= f.text_field :name %><br />
+
+  <%= f.label :vineyard %>:
+  <%= f.text_field :vineyard %><br />
+  
+  <%= f.label :community_rating %>:
+  <%= f.number_field :community_rating %><br />
+
+  <%= f.label :description %>:
+  <%= f.text_area :description %><br />
+
+  <%= f.submit %>
+<% end %>
