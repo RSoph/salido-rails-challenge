@@ -13,8 +13,20 @@ RSpec.describe API::WinesController, :type => :controller do
       expect(@response.code).to eq("200")
     end
 
-    it "wine name as expected" do
-      expect(@wine["name"]).to eq("Duckhorn Vineyards Wine Trio")
+    it "wine name is displayed" do
+      expect(@wine["name"].class).to eq(String)
+    end
+  end
+
+  describe "GET bad wine" do
+    before(:each) do
+      id = "notanid"
+      @uri = URI("http://localhost:3000/api/wines/#{id}")
+      @response = Net::HTTP.get_response(@uri)
+    end
+
+    it "gives 404 when an invalid wine is called" do
+      expect(@response.code).to eq("404")
     end
   end
 
@@ -26,17 +38,29 @@ RSpec.describe API::WinesController, :type => :controller do
         @wine.reload
       }.to change(@wine, :vineyard).to("Grape Scott!")
     end
+
+    it "should not update rating" do
+      @wine = Wine.create(vineyard: "none")
+      patch :update, id: @wine, community_rating: 10
+      @wine.reload
+      rating = @wine["community_rating"].to_s
+      expect(rating != 10)
+    end
   end
 
-    describe "index" do
+  describe "index" do
     before(:each) do
       @uri = URI('http://localhost:3000/api/wines')
       @response = Net::HTTP.get_response(@uri)
       @wines = JSON.parse(@response.body)
     end
 
+    it "displays an array of wines" do
+      expect(@wines.class).to eq(Array)
+    end
+
     it "wine names are displayed" do
-      expect(@wines[0]["name"]).to eq("90+ Point Red Wine Trio")
+      expect(@wines[0]["name"].class).to eq(String)
     end
   end
 end
